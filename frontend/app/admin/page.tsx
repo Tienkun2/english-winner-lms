@@ -51,7 +51,7 @@ export default function AdminPage() {
   const [confirmConfig, setConfirmConfig] = useState({
     title: "",
     message: "",
-    onConfirm: () => {},
+    onConfirm: () => { },
     isDanger: true
   })
 
@@ -76,9 +76,9 @@ export default function AdminPage() {
       .finally(() => setListLoading(false))
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     fetchClasses()
-    fetchLessons() 
+    fetchLessons()
   }, [])
 
   const validateClassForm = () => {
@@ -166,7 +166,7 @@ export default function AdminPage() {
   // ── Submit ──
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // Trigger validation
     if (!validateLessonForm()) return
 
@@ -253,7 +253,7 @@ export default function AdminPage() {
       <nav className="navbar">
         <div className="navbar-inner">
           <a href="/" className="logo">
-            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ borderRadius: 8, objectFit: "cover" }} />
+            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ width: "32px", height: "32px", borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
             <span className="logo-text">Quản trị hệ thống</span>
           </a>
           <ul className="nav-links">
@@ -268,15 +268,15 @@ export default function AdminPage() {
         </div>
       </nav>
 
-      <div className="container" style={{ 
-        paddingTop: "clamp(72px, 12vw, 90px)", 
-        paddingBottom: 60 
+      <div className="container" style={{
+        paddingTop: "clamp(72px, 12vw, 90px)",
+        paddingBottom: 60
       }}>
         {/* ── Header ── */}
         <div style={{ marginBottom: 24, textAlign: "center" }}>
-          <h1 style={{ 
-            fontSize: "clamp(1.25rem, 6vw, 2rem)", 
-            fontWeight: 900, 
+          <h1 style={{
+            fontSize: "clamp(1.25rem, 6vw, 2rem)",
+            fontWeight: 900,
             letterSpacing: "-0.02em"
           }}>
             Quản lý bài giảng
@@ -285,16 +285,16 @@ export default function AdminPage() {
 
         {/* ── Stat Cards ── */}
         {!listLoading && (
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(2, 1fr)", 
-            gap: 12, 
-            marginBottom: 24 
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: 12,
+            marginBottom: 24
           }}>
             <div className="stat-card" style={{ padding: "12px", minHeight: "auto" }}>
-              <div className="stat-icon" style={{ 
+              <div className="stat-icon" style={{
                 width: 28, height: 28, fontSize: "0.85rem", flexShrink: 0,
-                background: "rgba(16,185,129,0.1)" 
+                background: "rgba(16,185,129,0.1)"
               }}>🏫</div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div className="stat-value" style={{ fontSize: "0.95rem" }}>{classes.length}</div>
@@ -322,11 +322,11 @@ export default function AdminPage() {
         )}
 
         {/* ── Tabs Navigation (Forced 50/50 Grid) ── */}
-        <div style={{ 
-          display: "grid", 
+        <div style={{
+          display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          background: "#efefef", 
-          padding: 3, 
+          background: "#efefef",
+          padding: 3,
           borderRadius: 12,
           marginBottom: 24,
           width: "100%",
@@ -335,11 +335,11 @@ export default function AdminPage() {
           marginRight: "auto",
           overflow: "hidden"
         }}>
-          <button 
+          <button
             className={`btn ${activeTab === "classes" ? "btn-primary" : ""}`}
-            style={{ 
-              borderRadius: 10, 
-              padding: "10px 0", 
+            style={{
+              borderRadius: 10,
+              padding: "10px 0",
               fontSize: "0.85rem",
               fontWeight: 700,
               background: activeTab === "classes" ? "var(--primary)" : "transparent",
@@ -353,11 +353,11 @@ export default function AdminPage() {
           >
             🏫 Lớp học
           </button>
-          <button 
+          <button
             className={`btn ${activeTab === "lessons" ? "btn-primary" : ""}`}
-            style={{ 
-              borderRadius: 10, 
-              padding: "10px 0", 
+            style={{
+              borderRadius: 10,
+              padding: "10px 0",
               fontSize: "0.85rem",
               fontWeight: 700,
               background: activeTab === "lessons" ? "var(--primary)" : "transparent",
@@ -382,9 +382,9 @@ export default function AdminPage() {
               <form onSubmit={handleCreateClass} noValidate style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div className="form-group">
                   <label className="form-label" style={{ fontSize: "0.8rem" }}>Tên lớp học *</label>
-                  <input 
+                  <input
                     className={`form-input ${errors.className ? "error" : ""}`}
-                    placeholder="VD: Lớp Tiếng Anh Giao Tiếp" 
+                    placeholder="VD: Lớp Tiếng Anh Giao Tiếp"
                     value={newClassName}
                     onChange={e => {
                       setNewClassName(e.target.value)
@@ -395,9 +395,9 @@ export default function AdminPage() {
                 </div>
                 <div className="form-group">
                   <label className="form-label" style={{ fontSize: "0.8rem" }}>Mô tả</label>
-                  <textarea 
-                    className="form-textarea" 
-                    placeholder="Mô tả ngắn gọn..." 
+                  <textarea
+                    className="form-textarea"
+                    placeholder="Mô tả ngắn gọn..."
                     value={newClassDesc}
                     onChange={e => setNewClassDesc(e.target.value)}
                     rows={2}
@@ -417,13 +417,13 @@ export default function AdminPage() {
                   <p style={{ textAlign: "center", color: "var(--text-muted)", padding: "20px 0", fontSize: "0.9rem" }}>Chưa có lớp học nào.</p>
                 ) : (
                   classes.map(c => (
-                    <div className="admin-row" key={c.id} style={{ 
-                      display: "flex", 
-                      alignItems: "center", 
-                      justifyContent: "space-between", 
-                      padding: "12px 16px", 
-                      borderRadius: 14, 
-                      background: "white", 
+                    <div className="admin-row" key={c.id} style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "12px 16px",
+                      borderRadius: 14,
+                      background: "white",
                       border: "1px solid var(--border-subtle)",
                       boxShadow: "var(--shadow-sm)"
                     }}>
@@ -431,21 +431,21 @@ export default function AdminPage() {
                         <div style={{ fontWeight: 700, fontSize: "0.85rem", color: "var(--text-primary)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</div>
                         <div style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>{lessons.filter(l => l.classId === c.id).length} bài học</div>
                       </div>
-                      <button 
-                        className="btn" 
-                        style={{ 
-                          width: 32, 
-                          height: 32, 
-                          padding: 0, 
-                          display: "flex", 
-                          alignItems: "center", 
-                          justifyContent: "center", 
-                          borderRadius: 8, 
-                          background: "#fff5f5", 
+                      <button
+                        className="btn"
+                        style={{
+                          width: 32,
+                          height: 32,
+                          padding: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 8,
+                          background: "#fff5f5",
                           color: "#ff4d4f",
                           border: "1px solid #ffa39e",
                           fontSize: "0.8rem"
-                        }} 
+                        }}
                         onClick={() => handleDeleteClass(c.id, c.name)}
                       >
                         🗑
@@ -478,29 +478,42 @@ export default function AdminPage() {
                   {errors.lessonTitle && <div className="error-message">⚠️ {errors.lessonTitle}</div>}
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div className="grid-2" style={{ gap: 16 }}>
                   <div>
                     <label className="form-label" style={{ fontSize: "0.8rem" }}>Lớp học *</label>
-                    <select
-                      className={`form-select ${errors.lessonClass ? "error" : ""}`}
-                      style={{ height: 42, fontSize: "0.875rem", padding: "0 10px" }}
-                      value={selectedClassId}
-                      onChange={e => {
-                        setSelectedClassId(e.target.value)
-                        if (errors.lessonClass) setErrors(prev => ({ ...prev, lessonClass: "" }))
-                      }}
-                      disabled={uploadStatus === "uploading"}
-                    >
-                      <option value="">-- Chọn lớp học --</option>
-                      {classes.map(c => (
-                        <option key={c.id} value={c.id}>{c.name}</option>
-                      ))}
-                    </select>
+                    <div style={{ position: "relative" }}>
+                      <select
+                        className={`form-select ${errors.lessonClass ? "error" : ""}`}
+                        style={{ 
+                          appearance: "none",
+                          WebkitAppearance: "none",
+                          height: 42, 
+                          fontSize: "0.875rem", 
+                          padding: "0 40px 0 14px",
+                          borderRadius: "var(--radius)",
+                          cursor: "pointer",
+                          background: "var(--surface)",
+                          borderColor: errors.lessonClass ? "var(--danger)" : "var(--border)"
+                        }}
+                        value={selectedClassId}
+                        onChange={e => {
+                          setSelectedClassId(e.target.value)
+                          if (errors.lessonClass) setErrors(prev => ({ ...prev, lessonClass: "" }))
+                        }}
+                        disabled={uploadStatus === "uploading"}
+                      >
+                        <option value="">-- Chọn lớp học --</option>
+                        {classes.map(c => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
+                      </select>
+                      <span style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: "var(--text-muted)", fontSize: "0.8rem" }}>▼</span>
+                    </div>
                     {errors.lessonClass && <div className="error-message">⚠️ {errors.lessonClass}</div>}
                   </div>
                   <div>
                     <label className="form-label" style={{ fontSize: "0.8rem" }}>File đính kèm *</label>
-                    <div 
+                    <div
                       className={`file-zone ${file ? "has-file" : ""} ${errors.lessonFile ? "error" : ""}`}
                       onClick={() => !file && fileInputRef.current?.click()}
                       style={{ height: 42, minHeight: 42, padding: "0 12px", borderRadius: "var(--radius)", display: "flex", alignItems: "center" }}
@@ -568,13 +581,13 @@ export default function AdminPage() {
                           {c.name} ({classLessons.length})
                         </h3>
                         {classLessons.map((lesson) => (
-                          <div className="admin-row" key={lesson.id} style={{ 
-                            display: "flex", 
-                            alignItems: "center", 
-                            gap: 12, 
-                            padding: "10px", 
-                            borderRadius: 12, 
-                            background: "white", 
+                          <div className="admin-row" key={lesson.id} style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 12,
+                            padding: "10px",
+                            borderRadius: 12,
+                            background: "white",
                             border: "1px solid var(--border-subtle)",
                             boxShadow: "var(--shadow-sm)"
                           }}>
@@ -586,8 +599,22 @@ export default function AdminPage() {
                               <div style={{ fontSize: "0.65rem", color: "var(--text-muted)" }}>{lesson.type.toUpperCase()} • {new Date(lesson.createdAt).toLocaleDateString("vi-VN")}</div>
                             </div>
                             <div style={{ display: "flex", gap: 6 }}>
-                              <button className="btn btn-secondary btn-sm" style={{ padding: "4px 8px" }} onClick={() => router.push(`/lessons/${lesson.id}`)}>👁</button>
-                              <button className="btn btn-danger btn-sm" style={{ padding: "4px 8px" }} onClick={() => handleDelete(lesson.id, lesson.title)}>🗑</button>
+                              <button
+                                className="btn btn-secondary btn-sm"
+                                style={{ padding: "4px 8px", minWidth: 32, height: 32, borderRadius: 8 }}
+                                onClick={() => router.push(`/lessons/${lesson.id}`)}
+                                title="Xem"
+                              >
+                                👁
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm"
+                                style={{ padding: "4px 8px", minWidth: 32, height: 32, borderRadius: 8, background: "rgba(239, 68, 68, 0.08)" }}
+                                onClick={() => handleDelete(lesson.id, lesson.title)}
+                                title="Xóa"
+                              >
+                                🗑
+                              </button>
                             </div>
                           </div>
                         ))}
@@ -614,7 +641,7 @@ export default function AdminPage() {
               <button className="btn btn-secondary" onClick={() => setShowConfirm(false)}>
                 Hủy bỏ
               </button>
-              <button 
+              <button
                 className={`btn ${confirmConfig.isDanger ? "btn-danger" : "btn-primary"}`}
                 onClick={confirmConfig.onConfirm}
               >

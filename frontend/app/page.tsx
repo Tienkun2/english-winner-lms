@@ -43,7 +43,7 @@ export default function LandingPage() {
       <nav className="navbar">
         <div className="navbar-inner">
           <a href="/" className="logo">
-            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ borderRadius: 8, objectFit: "cover" }} />
+            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ width: "32px", height: "32px", borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
             <span className="logo-text">English Winner</span>
           </a>
           <ul className="nav-links">
@@ -355,7 +355,7 @@ export default function LandingPage() {
           <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 40 }}>
             <div>
               <div className="logo" style={{ marginBottom: 16 }}>
-                <Image src="/Logo.jpg" alt="English Winner Logo" width={48} height={48} style={{ borderRadius: 12, objectFit: "cover" }} />
+                <Image src="/Logo.jpg" alt="English Winner Logo" width={48} height={48} style={{ width: "48px", height: "48px", borderRadius: 12, objectFit: "cover", flexShrink: 0 }} />
                 <span style={{ fontSize: "1.25rem", fontWeight: 800 }}>English Winner</span>
               </div>
               <p style={{ fontSize: "0.875rem", maxWidth: 300, lineHeight: 1.6 }}>

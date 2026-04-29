@@ -128,30 +128,24 @@ body {
 
 @media (max-width: 768px) {
   .navbar-inner {
-    padding: 0 12px !important;
-    gap: 4px !important;
+    padding: 0 16px !important;
+    gap: 8px !important;
   }
-  
+
   .nav-links {
-    display: flex !important;
-    gap: 2px !important;
-    flex: 1 !important;
-    justify-content: center !important;
-  }
-  
-  .nav-link {
-    font-size: 0.65rem !important;
-    padding: 4px 6px !important;
-    white-space: nowrap !important;
+    display: none !important;
+    /* Hide nav links on mobile to save space */
   }
 
   .logo-text {
-    display: none !important;
+    font-size: 0.9rem !important;
+    display: block !important;
+    /* Keep logo text but smaller */
   }
-  
+
   .btn-sm {
-    padding: 6px 10px !important;
-    font-size: 0.7rem !important;
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
   }
 }
 
@@ -327,17 +321,14 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  position: relative;
+  margin-bottom: 0;
 }
 
 .form-label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
-}
-
-.form-group {
-  margin-bottom: 20px;
-  position: relative;
 }
 
 .form-input,
@@ -381,8 +372,15 @@ body {
 }
 
 @keyframes slideInDown {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form-input::placeholder,
@@ -704,6 +702,21 @@ body {
 @media (max-width: 640px) {
   .container {
     padding: 0 16px;
+  }
+
+  .footer .container {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .footer .container > div {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer .logo {
+    justify-content: center;
   }
 }
 
@@ -1048,7 +1061,6 @@ button.back-btn:hover {
     transform: translateX(100px);
     opacity: 0;
   }
-
   to {
     transform: translateX(0);
     opacity: 1;
@@ -1059,9 +1071,8 @@ button.back-btn:hover {
    Responsive Utilities
 ───────────────────────────────────────────── */
 
-/* Medium devices (Tablets, 1024px and down) */
 @media (max-width: 1024px) {
-  .grid-3 {
+  .grid-3, .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1069,143 +1080,79 @@ button.back-btn:hover {
   .lesson-detail-layout {
     grid-template-columns: 1fr;
   }
-
-  .section {
-    padding: 64px 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .hide-on-mobile {
-    display: none !important;
-  }
 }
 
 @media (max-width: 768px) {
   .navbar-inner {
-    height: auto;
-    padding: 10px 12px !important;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .container {
-    padding: 0 12px !important;
-  }
-
-  .logo-text {
-    display: none;
+    padding: 0 16px !important;
+    gap: 8px !important;
   }
 
   .nav-links {
-    order: 3;
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding: 8px 0;
-    gap: 4px;
-    border-top: 1px solid var(--border-subtle);
+    display: none !important;
   }
 
-  .nav-link {
-    font-size: 0.7rem;
-    padding: 6px 8px;
-    white-space: nowrap;
+  .logo-text {
+    font-size: 0.9375rem !important;
+    display: block !important;
   }
 
-  .hero-blob {
-    display: none;
+  .btn-sm {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
   }
 
-  h1 {
-    font-size: 1.85rem !important;
+  .hide-on-mobile {
+    display: none !important;
   }
 
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .grid-2,
-  .grid-3 {
+  .grid-2, .grid-3, .grid-4 {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
 
-  .stat-card {
-    padding: 16px;
+  h1 {
+    font-size: 1.75rem !important;
   }
 
-  .stat-value {
-    font-size: 1.5rem;
+  .section-title {
+    font-size: 1.5rem !important;
   }
 
-  .admin-layout,
-  .lesson-detail-layout {
-    grid-template-columns: 1fr;
+  .footer .container > div {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
   }
-
-  .admin-row {
-    padding: 12px !important;
-  }
-
-  .admin-row h3 {
-    font-size: 0.875rem !important;
+  
+  .footer .logo {
+    justify-content: center;
   }
 }
 
-/* Extra small devices (Phones, 480px and down) */
 @media (max-width: 480px) {
   .container {
     padding: 0 12px !important;
-  }
-
-  .section {
-    padding: 32px 0;
-  }
-
-  .btn-lg {
-    width: 100%;
   }
 
   .card {
     padding: 16px !important;
   }
 
-  .admin-row {
-    flex-direction: row;
-    padding: 12px !important;
-    gap: 12px !important;
+  .stat-card {
+    padding: 12px;
   }
 
-  .admin-row div:first-child {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+  .btn-lg {
+    width: 100%;
+    padding: 12px 24px;
   }
 
-  .footer>.container>div {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer .logo {
-    justify-content: center;
-  }
-
-  /* Force single columns for everything */
-  .grid-2,
-  .grid-3,
-  .admin-layout,
-  .lesson-detail-layout {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 16px !important;
-  }
-
-  h1 {
-    font-size: 1.75rem !important;
+  button.back-btn {
+    padding: 8px 16px !important;
+    font-size: 0.7rem !important;
+    margin-bottom: 16px !important;
   }
 }
 

@@ -42,7 +42,7 @@ export default function LessonDetailPage() {
       <nav className="navbar">
         <div className="navbar-inner">
           <a href="/" className="logo">
-            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ borderRadius: 8, objectFit: "cover" }} />
+            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ width: "32px", height: "32px", borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
             <span className="logo-text">English Winner</span>
           </a>
           <ul className="nav-links">
@@ -68,7 +68,7 @@ export default function LessonDetailPage() {
         </nav>
 
         {/* ── Back Button ── */}
-        <button className="back-btn" onClick={() => router.push("/lessons")}>
+        <button className="back-btn" onClick={() => router.back()}>
           <span style={{ fontSize: "1.2rem" }}>←</span> Danh sách bài giảng
         </button>
 

@@ -18,6 +18,17 @@ function LessonsContent() {
   const [search, setSearch] = useState("")
   const [selectedClassId, setSelectedClassId] = useState(initialClassId)
 
+  // Sync state with URL when back button is pressed
+  useEffect(() => {
+    const classId = searchParams.get("classId") || "all"
+    setSelectedClassId(classId)
+  }, [searchParams])
+
+  const handleClassSelect = (id: string) => {
+    setSelectedClassId(id)
+    router.push(`/lessons?classId=${id}`)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
@@ -51,7 +62,7 @@ function LessonsContent() {
       <nav className="navbar">
         <div className="navbar-inner">
           <a href="/" className="logo">
-            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ borderRadius: 8, objectFit: "cover" }} />
+            <Image src="/Logo.jpg" alt="English Winner Logo" width={32} height={32} style={{ width: "32px", height: "32px", borderRadius: 8, objectFit: "cover", flexShrink: 0 }} />
             <span className="logo-text">English Winner</span>
           </a>
           <ul className="nav-links">
@@ -116,51 +127,89 @@ function LessonsContent() {
             />
           </div>
 
-          {/* Filter tabs */}
-          <div style={{ display: "flex", gap: 4 }}>
-            {(["all", "video", "pdf"] as const).map(f => (
+          <div style={{ height: 24, width: 1, background: "var(--border)", margin: "0 8px" }} className="hide-on-mobile" />
+
+          {/* Group 2: Type Filter */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginRight: 4 }} className="hide-on-mobile">Loại:</span>
+            <div style={{ display: "flex", gap: 6 }}>
               <button
-                key={f}
-                className="btn btn-sm"
-                id={`filter-${f}`}
-                style={{
-                  background: filter === f ? "var(--primary)" : "transparent",
-                  color: filter === f ? "white" : "var(--text-secondary)",
-                  border: filter === f ? "none" : "1px solid var(--border)",
-                  borderRadius: "var(--radius-full)",
-                }}
-                onClick={() => setFilter(f)}
+                className={`btn btn-sm ${filter === "all" ? "btn-primary" : "btn-secondary"}`}
+                style={{ borderRadius: "var(--radius-full)", height: 38, padding: "0 16px", fontWeight: 600 }}
+                onClick={() => setFilter("all")}
               >
-                {f === "all" ? "🌍 Tất cả" : f === "video" ? "🎓 Video" : "📚 PDF"}
+                🌎 Tất cả
               </button>
-            ))}
+              <button
+                className={`btn btn-sm ${filter === "video" ? "btn-primary" : "btn-secondary"}`}
+                style={{ borderRadius: "var(--radius-full)", height: 38, padding: "0 16px", fontWeight: 600 }}
+                onClick={() => setFilter("video")}
+              >
+                🎓 Video
+              </button>
+              <button
+                className={`btn btn-sm ${filter === "pdf" ? "btn-primary" : "btn-secondary"}`}
+                style={{ borderRadius: "var(--radius-full)", height: 38, padding: "0 16px", fontWeight: 600 }}
+                onClick={() => setFilter("pdf")}
+              >
+                📚 PDF
+              </button>
+            </div>
           </div>
 
-          {/* Class Filter */}
-          <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "none" }}>
-            <button
-              className={`btn btn-sm ${selectedClassId === "all" ? "btn-primary" : "btn-secondary"}`}
-              style={{ borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }}
-              onClick={() => setSelectedClassId("all")}
-            >
-              🏫 Tất cả lớp
-            </button>
-            {classes.map(c => (
-              <button
-                key={c.id}
-                className={`btn btn-sm ${selectedClassId === c.id ? "btn-primary" : "btn-secondary"}`}
-                style={{ borderRadius: "var(--radius-full)", whiteSpace: "nowrap" }}
-                onClick={() => setSelectedClassId(c.id)}
+          <div style={{ height: 24, width: 1, background: "var(--border)", margin: "0 8px" }} className="hide-on-mobile" />
+
+          {/* Group 3: Class Filter */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1 }}>
+            <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginRight: 4 }} className="hide-on-mobile">Lớp:</span>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <select
+                className="form-select"
+                style={{ 
+                  appearance: "none",
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  width: "auto", 
+                  minWidth: 160, 
+                  borderRadius: "var(--radius-full)", 
+                  height: 38, 
+                  fontSize: "0.8125rem",
+                  fontWeight: 600,
+                  padding: "0 40px 0 16px",
+                  cursor: "pointer",
+                  background: selectedClassId !== "all" ? "var(--primary)" : "var(--surface)",
+                  color: selectedClassId !== "all" ? "white" : "var(--text-primary)",
+                  borderColor: selectedClassId !== "all" ? "var(--primary)" : "var(--border)",
+                  transition: "all 0.2s ease"
+                }}
+                value={selectedClassId}
+                onChange={(e) => handleClassSelect(e.target.value)}
               >
-                {c.name}
-              </button>
-            ))}
+                <option value="all" style={{ color: "var(--text-primary)", background: "white" }}>🏫 Tất cả lớp</option>
+                {classes.map(c => (
+                  <option key={c.id} value={c.id} style={{ color: "var(--text-primary)", background: "white" }}>{c.name}</option>
+                ))}
+              </select>
+              <span style={{ 
+                position: "absolute", 
+                right: 14, 
+                top: "50%", 
+                transform: "translateY(-50%)", 
+                pointerEvents: "none",
+                fontSize: "0.8rem",
+                color: selectedClassId !== "all" ? "white" : "var(--text-muted)"
+              }}>
+                ▼
+              </span>
+            </div>
           </div>
 
           {/* Count */}
-          <span style={{ fontSize: "0.875rem", color: "var(--text-muted)", marginLeft: "auto" }}>
-            {filtered.length} bài giảng
-          </span>
+          <div style={{ marginLeft: "auto" }}>
+            <span style={{ fontSize: "0.8125rem", fontWeight: 700, color: "var(--text-muted)", background: "rgba(0,0,0,0.04)", padding: "4px 12px", borderRadius: "var(--radius-full)" }}>
+              {filtered.length} bài giảng
+            </span>
+          </div>
         </div>
       </div>
 
@@ -205,12 +254,12 @@ function LessonsContent() {
                 </div>
                 <div className="grid-3" style={{ width: "100%" }}>
                   {classes.map(c => (
-                    <div 
-                      key={c.id} 
-                      className="card class-card" 
-                      onClick={() => setSelectedClassId(c.id)}
-                      style={{ 
-                        cursor: "pointer", 
+                    <div
+                      key={c.id}
+                      className="card class-card"
+                      onClick={() => handleClassSelect(c.id)}
+                      style={{
+                        cursor: "pointer",
                         border: "1px solid var(--border-subtle)",
                         padding: "40px 32px",
                         textAlign: "center",
@@ -220,13 +269,13 @@ function LessonsContent() {
                         gap: 20
                       }}
                     >
-                      <div style={{ 
-                        width: 72, 
-                        height: 72, 
-                        borderRadius: "50%", 
-                        background: "var(--primary-light)", 
-                        display: "flex", 
-                        alignItems: "center", 
+                      <div style={{
+                        width: 72,
+                        height: 72,
+                        borderRadius: "50%",
+                        background: "var(--primary-light)",
+                        display: "flex",
+                        alignItems: "center",
                         justifyContent: "center",
                         fontSize: "2.5rem",
                         color: "var(--primary-dark)"
@@ -249,17 +298,16 @@ function LessonsContent() {
                 const classLessons = filtered.filter(l => l.classId === c.id)
                 return (
                   <div key={c.id}>
-                    <div style={{ marginBottom: 24, borderBottom: "2px solid var(--primary-light)", paddingBottom: 12, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{ marginBottom: 24, borderBottom: "2px solid var(--primary-light)", paddingBottom: 12 }}>
                       <div style={{ display: "flex", alignItems: "flex-end", gap: 12 }}>
                         <h2 style={{ fontSize: "1.5rem", fontWeight: 900, color: "var(--text-primary)" }}>{c.name}</h2>
                         <span style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: 4 }}>({classLessons.length} bài giảng)</span>
                       </div>
-                      <button className="btn btn-secondary btn-sm" onClick={() => setSelectedClassId("all")}>← Đổi lớp học</button>
                     </div>
                     {classLessons.length === 0 ? (
-                       <div className="empty-state">
-                         <p>Lớp học này chưa có bài giảng nào.</p>
-                       </div>
+                      <div className="empty-state">
+                        <p>Lớp học này chưa có bài giảng nào.</p>
+                      </div>
                     ) : (
                       <div className="grid-3">
                         {classLessons.map((lesson) => (
