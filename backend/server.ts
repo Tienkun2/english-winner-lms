@@ -10,13 +10,13 @@ const app = express()
 
 app.use(cors({
   origin: "*",
-  methods: ["GET", "POST", "DELETE"],
-  allowedHeaders: ["Content-Type"]
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }))
 app.use(express.json())
 
-const UPLOAD_DIR = path.join(__dirname, "uploads")
-const DATA_FILE = path.join(__dirname, "lessons.json")
+const UPLOAD_DIR = path.join(process.cwd(), "uploads")
+const DATA_FILE = path.join(process.cwd(), "lessons.json")
 
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, "[]", "utf-8")
@@ -72,7 +72,7 @@ interface Lesson {
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
-const CLASS_FILE = path.join(__dirname, "classes.json")
+const CLASS_FILE = path.join(process.cwd(), "classes.json")
 if (!fs.existsSync(CLASS_FILE)) fs.writeFileSync(CLASS_FILE, "[]", "utf-8")
 
 const readClasses = (): Class[] => {
