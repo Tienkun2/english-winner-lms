@@ -1,0 +1,26 @@
+[
+  {
+    "id": "c3095ce0-f291-48ef-81c5-d060c9acacde",
+    "name": "Lớp 4",
+    "description": "",
+    "createdAt": "2026-04-29T02:54:00.290Z"
+  },
+  {
+    "id": "806092c8-a3e9-4508-b110-cdb988975be3",
+    "name": "Lớp 3",
+    "description": "",
+    "createdAt": "2026-04-29T02:53:55.689Z"
+  },
+  {
+    "id": "a422406c-128b-4ade-af02-8129c67a5910",
+    "name": "Lớp 2",
+    "description": "",
+    "createdAt": "2026-04-29T02:48:14.274Z"
+  },
+  {
+    "id": "044d53ab-103b-4ad0-84b8-0eb2cf571f02",
+    "name": "Lớp 1",
+    "description": "",
+    "createdAt": "2026-04-29T02:34:23.366Z"
+  }
+]
