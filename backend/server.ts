@@ -186,6 +186,7 @@ app.delete("/classes/:id", (req: Request, res: Response): void => {
  * Upload a new lesson (file + metadata)
  */
 app.post("/upload", upload.single("file"), (req: Request, res: Response): void => {
+  console.log("📥 Received upload request:", req.file?.originalname)
   try {
     const { title, description, classId } = req.body
     const file = req.file
